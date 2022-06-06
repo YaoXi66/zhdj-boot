@@ -38,6 +38,9 @@ public class ManageController {
     private CourseDao courseDao;
     @Resource
     private ExamDao examDao;
+    @Resource
+    private MessageDao messageDao;
+
 /*-------------------------------------------------增加--------------------------------------------------------*/
 
     //    创建图书
@@ -120,6 +123,26 @@ public class ManageController {
             user.setHeader_img(user1.getHeader_img());
             System.out.println(user1);
             userDao.insert(user);
+
+        }
+
+    }
+
+//    创建Message
+    @RequestMapping("/insert/message")
+    public void insertMessage(@RequestBody Map<String,Object> Message, HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        Object data = Message.get("data");
+        System.out.println(data);
+        Message message = new Message();
+        List<Message> parse =JSON.parseArray(data.toString(),Message.class);
+        for (Message message1 : parse) {
+            message.setUser_id(message1.getUser_id());
+            message.setSender_id(message1.getSender_id());
+            message.setContent(message1.getContent());
+            message.setTime(message1.getTime());
+            message.setMessage_id(message1.getMessage_id());
+            System.out.println(message);
+            messageDao.insert(message);
 
         }
 
@@ -232,7 +255,7 @@ public class ManageController {
 /*-------------------------------------------------删除--------------------------------------------------------*/
 //    删除用户
     @RequestMapping("/delete/user")
-    public void deleteUser(int id, HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    public void deleteUser(Integer id, HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
         System.out.println(id);
         userDao.deleteById(id);
@@ -301,6 +324,15 @@ public class ManageController {
 
         System.out.println(id);
         courseDao.deleteById(id);
+
+    }
+
+//    删除消息
+    @RequestMapping("/delete/message")
+    public void deleteMessage(int id, HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+
+        System.out.println(id);
+        messageDao.deleteById(id);
 
     }
 
@@ -447,6 +479,24 @@ public class ManageController {
 
         JSONObject res = new JSONObject();
         res.put("data",courses);
+        res.put("result",200);
+        System.out.println(res.toJSONString());
+        response.getWriter().write(res.toJSONString());
+
+    }
+
+    //    查询题库
+    @RequestMapping("/select/message")
+    public void selectMessage( HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+
+        List<Message> messages= messageDao.selectList(null);
+        System.out.println(messages);
+
+        //可以使用封装类简写Content-Type，使用该方法则无需使用setCharacterEncoding
+        response.setContentType("text/html;charset=UTF-8");
+
+        JSONObject res = new JSONObject();
+        res.put("data",messages);
         res.put("result",200);
         System.out.println(res.toJSONString());
         response.getWriter().write(res.toJSONString());
