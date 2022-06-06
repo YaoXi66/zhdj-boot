@@ -148,6 +148,27 @@ public class ManageController {
 
     }
 
+//    创建会议
+    @RequestMapping("/insert/metting")
+    public void insertMeeting(@RequestBody Map<String,Object> Course, HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        Object data = Course.get("data");
+        System.out.println(data);
+        Course course = new Course();
+        List<Course> parse =JSON.parseArray(data.toString(),Course.class);
+        for (Course course1 : parse) {
+            course.setId(course1.getId());
+            course.setName(course1.getName());
+            course.setNumber(course1.getNumber());
+            course.setMan(course1.getMan());
+            course.setLink(course1.getLink());
+            course.setTime(course1.getTime());
+            System.out.println(course);
+            courseDao.insert(course);
+
+        }
+
+    }
+
 /*-------------------------------------------------修改--------------------------------------------------------*/
 
 //    修改图书
