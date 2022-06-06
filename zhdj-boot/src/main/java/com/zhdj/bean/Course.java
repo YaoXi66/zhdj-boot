@@ -11,7 +11,7 @@ import lombok.ToString;
 @AllArgsConstructor
 @ToString
 public class Course {
-
+    private  int id;
     private String name;
     private String number;
     private String man;

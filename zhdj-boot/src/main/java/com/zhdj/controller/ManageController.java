@@ -132,9 +132,11 @@ public class ManageController {
     public void updateBook(@RequestBody Map<String,Object> data, HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
         Object books = data.get("data");
+        System.out.println(books);
         Book book = JSON.parseObject(books.toString(), Book.class);
 
         Book book1 = new Book();
+        book1.setBook_id(book.getBook_id());
         book1.setTitle(book.getTitle());
         book1.setIntroduce(book.getIntroduce());
         book1.setAuthor(book.getAuthor());
@@ -160,52 +162,55 @@ public class ManageController {
         user1.setSex(user.getSex());
         user1.setHeader_img(user.getHeader_img());
 
-        System.out.println(user);
+
         System.out.println(user1);
 
         userDao.updateById(user1);
 
     }
 
-//    修改动态news
+//    修改vr
     @RequestMapping("/update/vr")
     public void updateVr(@RequestBody Map<String,Object> data, HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
+        System.out.println(data);
         Object vrs = data.get("data");
+        System.out.println(vrs);
         Vr vr1 = JSON.parseObject(vrs.toString(), Vr.class);
-
         Vr vr = new Vr();
-        vr1.setUrl(vr.getUrl());
-        vr1.setName(vr.getName());
-        vr1.setPreview(vr.getPreview());
+        vr.setId(vr1.getId());
+        vr.setUrl(vr1.getUrl());
+        vr.setName(vr1.getName());
+        vr.setPreview(vr1.getPreview());
 
-        System.out.println(vr1);
+        System.out.println(vr);
 
-        vrDao.updateById(vr1);
+        vrDao.updateById(vr);
 
     }
 
-    //    修改动态news
+//    修改metting
     @RequestMapping("/update/metting")
     public void updateMetting(@RequestBody Map<String,Object> data, HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
+        System.out.println(data);
         Object courses = data.get("data");
+        System.out.println(courses);
         Course course1 = JSON.parseObject(courses.toString(), Course.class);
 
         Course course = new Course();
-        course1.setName(course.getName());
-        course1.setNumber(course.getNumber());
-        course1.setMan(course.getMan());
-        course1.setLink(course.getLink());
-        course1.setTime(course.getTime());
+        course.setId(course1.getId());
+        course.setName(course1.getName());
+        course.setNumber(course1.getNumber());
+        course.setMan(course1.getMan());
+        course.setLink(course1.getLink());
+        course.setTime(course1.getTime());
 
-        System.out.println(course1);
+        System.out.println(course);
 
-        courseDao.updateById(course1);
+        courseDao.updateById(course);
 
     }
 
-    //    修改动态news
+//    修改题库
     @RequestMapping("/update/exam")
     public void updateExam(@RequestBody Map<String,Object> data, HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
@@ -213,13 +218,14 @@ public class ManageController {
         Exam exam1 = JSON.parseObject(exams.toString(), Exam.class);
 
         Exam exam = new Exam();
-        exam1.setName(exam.getName());
-        exam1.setUrl(exam.getUrl());
-        exam1.setPerview(exam.getPerview());
+        exam.setId(exam1.getId());
+        exam.setName(exam1.getName());
+        exam.setUrl(exam1.getUrl());
+        exam.setPerview(exam1.getPerview());
 
-        System.out.println(exam1);
+        System.out.println(exam);
 
-        examDao.updateById(exam1);
+        examDao.updateById(exam);
 
     }
 
